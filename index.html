@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZAINAI - Web3 Info Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #1a1a1a;
+      padding: 20px;
+      height: 100vh;
+      position: fixed;
+      overflow-y: auto;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 20px 0;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .sidebar li:hover {
+      color: #00ffcc;
+    }
+
+    .content {
+      margin-left: 280px;
+      padding: 40px;
+      flex-grow: 1;
+    }
+
+    h1, h2 {
+      color: #00ffcc;
+    }
+
+    .misi {
+      font-weight: 600;
+      color: #ff595e;
+    }
+
+    ul.bullet-list {
+      padding-left: 20px;
+    }
+
+    ul.bullet-list li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .button {
+      background-color: #00ffcc;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #00e6b0;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .search-bar {
+      margin-bottom: 30px;
+    }
+
+    #wallet-address {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    .airdrop-post {
+      border: 1px solid #333;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      background-color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <ul>
+      <li onclick="navigateTo('tentang')">📚 Tentang ZAINAI</li>
+      <li onclick="navigateTo('fitur')">🧩 Fitur-Fitur</li>
+      <li onclick="navigateTo('airdrop')">🎁 Airdrop & Whitelist</li>
+      <li onclick="navigateTo('presale')">🚀 Presale & IDO</li>
+      <li onclick="navigateTo('analisa')">📊 Analisa Proyek</li>
+      <li onclick="navigateTo('kalender')">📅 Kalender Event Crypto</li>
+      <li onclick="navigateTo('faq')">❓ FAQ</li>
+      <li onclick="navigateTo('kontak')">📬 Hubungi Kami</li>
+      <li onclick="navigateTo('admin')">🔐 Admin</li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Cari proyek atau fitur..." onkeyup="searchContent()">
+    </div>
+
+    <section id="tentang" class="section">
+      <h1>📚 Tentang ZAINAI</h1>
+      <p><strong>ZAINAI</strong> adalah platform pusat informasi cryptocurrency...</p>
+    </section>
+
+    <section id="fitur" class="section">
+      <h2>🧩 Fitur-Fitur</h2>
+      <ul class="bullet-list">
+        <li>Filter proyek berdasarkan kategori</li>
+        <li>Pemberitahuan real-time event penting</li>
+        <li>Widget statistik pasar</li>
+        <li>Dark mode & UI modern</li>
+      </ul>
+    </section>
+
+    <section id="airdrop" class="section">
+      <h2>🎁 Airdrop & Whitelist</h2>
+      <p>Dapatkan akses awal ke airdrop terbaru...</p>
+      <button class="button" onclick="navigateTo('airdropList')">Lihat Daftar Airdrop</button>
+    </section>
+
+    <section id="airdropList" class="section">
+      <h2>📋 Daftar Airdrop Terbaru</h2>
+      <div id="airdropContainer"></div>
+    </section>
+
+    <section id="presale" class="section">
+      <h2>🚀 Presale & IDO</h2>
+      <p>Ikuti presale token dengan potensi ROI tinggi...</p>
+    </section>
+
+    <section id="analisa" class="section">
+      <h2>📊 Analisa Proyek</h2>
+      <p>Kami menyediakan analisa mendalam proyek-proyek emerging...</p>
+    </section>
+
+    <section id="kalender" class="section">
+      <h2>📅 Kalender Event Crypto</h2>
+      <p>Jangan lewatkan event crypto penting seperti launchpad, listing, dan upgrade jaringan.</p>
+    </section>
+
+    <section id="faq" class="section">
+      <h2>❓ FAQ</h2>
+      <p>Punya pertanyaan? Kami sudah menyiapkan jawaban umum seputar platform kami.</p>
+    </section>
+
+    <section id="kontak" class="section">
+      <h2>📬 Hubungi Kami</h2>
+      <form onsubmit="submitForm(event)">
+        <input type="text" placeholder="Nama Anda" required>
+        <input type="email" placeholder="Email Anda" required>
+        <textarea placeholder="Pesan Anda" rows="5" required></textarea>
+        <button class="button" type="submit">Kirim</button>
+      </form>
+      <p id="formResponse"></p>
+    </section>
+
+    <section class="section">
+      <h2>🔗 Web3 Wallet Connect</h2>
+      <button class="button" onclick="connectWallet()">🔌 Hubungkan Wallet</button>
+      <p id="wallet-address"></p>
+    </section>
+
+    <section id="admin" class="section">
+      <h2>🔐 Admin Panel (Private)</h2>
+      <form onsubmit="addAirdrop(event)">
+        <input type="text" id="judulAirdrop" placeholder="Judul Airdrop" required>
+        <textarea id="deskripsiAirdrop" placeholder="Deskripsi lengkap..." rows="4" required></textarea>
+        <input type="url" id="linkAirdrop" placeholder="Link pendaftaran" required>
+        <button type="submit" class="button">Tambah Airdrop</button>
+      </form>
+    </section>
+
+    <footer>
+      &copy; 2025 ZAINAI. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    function navigateTo(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function searchContent() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.style.display = section.innerText.toLowerCase().includes(input) ? 'block' : 'none';
+      });
+    }
+
+    function submitForm(e) {
+      e.preventDefault();
+      document.getElementById('formResponse').textContent = '✅ Pesan berhasil dikirim!';
+    }
+
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          document.getElementById('wallet-address').textContent = 'Wallet terhubung: ' + accounts[0];
+        } catch (error) {
+          document.getElementById('wallet-address').textContent = '❌ Gagal menghubungkan wallet.';
+        }
+      } else {
+        alert('Metamask tidak ditemukan. Silakan instal ekstensi Metamask.');
+      }
+    }
+
+    function addAirdrop(e) {
+      e.preventDefault();
+      const title = document.getElementById('judulAirdrop').value;
+      const desc = document.getElementById('deskripsiAirdrop').value;
+      const link = document.getElementById('linkAirdrop').value;
+
+      const airdropHTML = `
+        <div class="airdrop-post">
+          <h3>${title}</h3>
+          <p>${desc}</p>
+          <a href="${link}" target="_blank">🔗 Daftar Sekarang</a>
+        </div>
+      `;
+
+      document.getElementById('airdropContainer').innerHTML += airdropHTML;
+
+      document.getElementById('judulAirdrop').value = '';
+      document.getElementById('deskripsiAirdrop').value = '';
+      document.getElementById('linkAirdrop').value = '';
+    }
+  </script>
+</body>
+</html>
