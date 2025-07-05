@@ -245,26 +245,41 @@
       }
     }
 
+    function renderAirdrops() {
+      const data = JSON.parse(localStorage.getItem('airdrops') || '[]');
+      let html = '';
+      data.forEach((airdrop) => {
+        html += `
+          <div class="airdrop-post">
+            <h3>${airdrop.title}</h3>
+            <p>${airdrop.desc}</p>
+            <a href="${airdrop.link}" target="_blank">🔗 Daftar Sekarang</a>
+          </div>
+        `;
+      });
+      document.getElementById('airdropContainer').innerHTML = html;
+    }
+
     function addAirdrop(e) {
       e.preventDefault();
       const title = document.getElementById('judulAirdrop').value;
       const desc = document.getElementById('deskripsiAirdrop').value;
       const link = document.getElementById('linkAirdrop').value;
 
-      const airdropHTML = `
-        <div class="airdrop-post">
-          <h3>${title}</h3>
-          <p>${desc}</p>
-          <a href="${link}" target="_blank">🔗 Daftar Sekarang</a>
-        </div>
-      `;
-
-      document.getElementById('airdropContainer').innerHTML += airdropHTML;
+      const data = JSON.parse(localStorage.getItem('airdrops') || '[]');
+      data.push({ title, desc, link });
+      localStorage.setItem('airdrops', JSON.stringify(data));
 
       document.getElementById('judulAirdrop').value = '';
       document.getElementById('deskripsiAirdrop').value = '';
       document.getElementById('linkAirdrop').value = '';
+
+      renderAirdrops();
     }
+
+    window.onload = function () {
+      renderAirdrops();
+    };
   </script>
 </body>
 </html>
